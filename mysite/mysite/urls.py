@@ -14,13 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from blog.views import IndexView, ArticleDetail, ArticleCreateView, LoginFormView, LogoutView, ArticleUpdateView, ArticleDeleteView
 
-from blog.views import index, detail
-
-urlpatterns = (
+urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', index),
-    path('article/<int:article_id>/', detail),
-)
+    path('', IndexView.as_view(), name='index'),
+    path('article/<int:pk>/', ArticleDetail.as_view(), name='detail'),
+    path('article/add', ArticleCreateView.as_view(), name='add_article'),
+    path('article/update/<int:pk>/', ArticleUpdateView.as_view(), name='update_article'),
+    path('article/delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete_article'),
+    path('login/', LoginFormView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
+
+ #   path('article/delete/')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -1,8 +1,17 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<img src="{%static 'cat.jpg'%}">
+{% block title %}
+{{page_title}}
+{%endblock%}
 
+{% block content %}
+    <a href=" {% url 'add_article'%}" > Add article </a>
+    <ul>
+         <h1>Articles!</h1>
+        {% for article in object_list %}
+            <li> <a href="{% url 'detail' article.id %}" >{{ article.title }}</a></li>
+        {%endfor%}
+    </ul>
 
-{% for article in articles %}
-<p>{{ article.title }}</p>
-{%endfor%}
+{% endblock%}

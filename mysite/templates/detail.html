@@ -1,4 +1,14 @@
 
-<p>{{ article.title }}</p>
-<p>{{ article.description}}</p>
-<p>{{ article.author }}</p>
+<p>Title: {{ article.title }}</p>
+<p>User id: {{ article.id}}</p>
+<p>Author: {{ article.author }}</p>
+<p>text</p>
+<div>
+    {{ article.description|safe}}
+</div>
+<hr>
+
+{% if user.is_authenticated %}
+<a href="{% url 'update_article' article.id%}">Update</a>
+<a href="{% url 'delete_article' article.id%}">Delete</a>
+{% endif %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <a href=" {% url 'add_article'%}" > Add article </a>
+    <ul>
+         <h1>Articles!</h1>
+        {% for article in object_list %}
+            <li> <a href="{% url 'detail' article.id %}" >{{ article.title }}</a></li>
+        {%endfor%}
+    </ul>
+
+
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Are you sure wont to delete "{{ object.title  }}"?</p>
+            <input type="submit" value="Confirm"/>
+            <button><a href="{% url 'detail' object.id%}">Cancel</a> </button>
+        </form>
+
+    </div>
+{% endblock%}
